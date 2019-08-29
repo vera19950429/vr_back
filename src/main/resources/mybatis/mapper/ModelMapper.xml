@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.vera.trade.mapper.ModelMapper">
+    <resultMap id="BaseResultMap" type="com.vera.trade.model.Model">
+        <id column="id" jdbcType="VARCHAR" property="id"/>
+        <result column="model_path" jdbcType="VARCHAR" property="modelPath"/>
+        <result column="photo_path" jdbcType="VARCHAR" property="photoPath"/>
+        <result column="back_path" jdbcType="VARCHAR" property="backPath"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="params" jdbcType="LONGVARCHAR" property="params"/>
+    </resultMap>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from model
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+    <insert id="insert" parameterType="com.vera.trade.model.Model">
+    insert into model (id, model_path, photo_path,
+      back_path, create_time, params
+      )
+    values (#{id,jdbcType=VARCHAR}, #{modelPath,jdbcType=VARCHAR}, #{photoPath,jdbcType=VARCHAR},
+      #{backPath,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{params,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+    <update id="updateByPrimaryKey" parameterType="com.vera.trade.model.Model">
+    update model
+    set model_path = #{modelPath,jdbcType=VARCHAR},
+      photo_path = #{photoPath,jdbcType=VARCHAR},
+      back_path = #{backPath,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      params = #{params,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+    <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select id, model_path, photo_path, back_path, create_time, params
+    from model
+    where id = #{id,jdbcType=VARCHAR}
+     for update;
+  </select>
+    <select id="selectAll" resultMap="BaseResultMap">
+    select id, model_path, photo_path, back_path, create_time, params
+    from model
+  </select>
+</mapper>
